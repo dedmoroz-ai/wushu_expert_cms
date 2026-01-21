@@ -3,6 +3,9 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+// Импортируем интерфейс Filament и наш новый класс ответа
+use Filament\Http\Responses\Auth\Contracts\LoginResponse as LoginResponseContract;
+use App\Http\Responses\LoginResponse;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -11,7 +14,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        // Подменяем стандартный ответ при входе на наш (с редиректами по ролям)
+        $this->app->bind(LoginResponseContract::class, LoginResponse::class);
     }
 
     /**
