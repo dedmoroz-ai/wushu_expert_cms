@@ -4,8 +4,8 @@ WORKDIR /var/www/html
 
 USER root
 
-# Устанавливаем расширение intl, которое нужно для Filament
-RUN apt-get update && apt-get install -y php8.4-intl
+# ИСПРАВЛЕНО: убрали "8.4", используем универсальное имя
+RUN apt-get update && apt-get install -y php-intl
 
 COPY . .
 
