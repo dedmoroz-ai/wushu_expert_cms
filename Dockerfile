@@ -4,8 +4,12 @@ WORKDIR /var/www/html
 
 USER root
 
-# ИСПРАВЛЕНО: убрали "8.4", используем универсальное имя
-RUN apt-get update && apt-get install -y php-intl
+# ИСПРАВЛЕНИЕ: Используем специальный установщик расширений.
+# Он работает надежнее, чем apt-get для новых версий PHP.
+COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
+
+# Устанавливаем intl через этот скрипт
+RUN install-php-extensions intl
 
 COPY . .
 
